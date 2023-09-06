@@ -6,7 +6,7 @@ class LogGeneration:
     def loggen():
         # logging.basicConfig(
         #     filename=".\\Logs\\automation.log",
-        #     filemode='w',
+        #     filemode='a',
         #     format="%(asctime)s: %(levelname)s: %(message)s",
         #     datefmt="%Y-%m-%d %H:%M:%S",
         # )
