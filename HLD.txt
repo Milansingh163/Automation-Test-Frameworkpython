@@ -1,0 +1,27 @@
+Phases
+1. Analyse the applicaton, technology
+
+2. how to chose test cases for automation
+Re test cases specially data driven 
+Regression test cases
+Test cases can be automatable
+
+3. Is it possible to automate all the test cases means 100 %
+whereevenr automation can be done it will be automated
+
+4. Design and implementaion the framework
+
+5. Pycharm/VS code >>> CI/CD >>>Version Control(maintainance)
+
+Examples:
+E commerce
+Frontend     Backend
+
+Link frontend : "https://demo.nopcommerce.com/"
+Link backend  : "https://admin-demo.nopcommerce.com/login?ReturnUrl=%2Fadmin%2F"
+
+'''
+for running tests from cmd
+python -m pytest testCases\test_login.py
+"Screenshot\imagename.png   "
+'''
