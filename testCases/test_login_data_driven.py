@@ -6,23 +6,19 @@ from selenium.webdriver.chrome.service import Service
 from utilities.readProperties import ReadConfig
 import time
 from utilities.logUtility import LogGeneration
-from utilities.read_excel_data_util import read_data
 
-class Test_002_ddt_login:
+class Test_001_login:
     base_url = ReadConfig.get_base_url()
-    path = ".//TestData/logindata.xlsx"
-    read_data()
-
     username = ReadConfig.get_username()
     password = ReadConfig.get_password()
-    logger = LogGeneration.loggen()
+    log_message = LogGeneration.loggen()
 
     def test_homepagetitle(self,setup):
-        self.logger.info("Test_001_login")
+        self.log_message.info('***********Home page test started**********')
         self.driver = setup
         self.driver.get(self.base_url)
         title = self.driver.title
-        self.logger.info("Title accessed")
+        self.log_message.info('***********title accessed**********')
         if title=='Your store. Login':
             self.driver.close()
             assert True
