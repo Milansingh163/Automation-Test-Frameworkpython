@@ -6,59 +6,72 @@ from selenium.webdriver.chrome.service import Service
 from utilities.readProperties import ReadConfig
 import time
 from utilities.logUtility import LogGeneration
+from utilities import read_excel_data_util
+import time
+
 
 class Test_001_login:
     base_url = ReadConfig.get_base_url()
-    username = ReadConfig.get_username()
-    password = ReadConfig.get_password()
+    login_data_path = ".\\TestData\\logindata.xlsx"
+    # username = ReadConfig.get_username()
+    # password = ReadConfig.get_password()
     log_message = LogGeneration.loggen()
 
-    def test_homepagetitle(self,setup):
-        self.log_message.info('***********Home page test started**********')
-        self.driver = setup
-        self.driver.get(self.base_url)
-        title = self.driver.title
-        self.log_message.info('***********title accessed**********')
-        if title=='Your store. Login':
-            self.driver.close()
-            assert True
-        else:
-            self.driver.save_screenshot("Screenshots/test_homepagetitle.png")
-            self.driver.close()
-            assert False
-
-    def test_login(self,setup):
+    # writing test case method for data driven excel file 
+    def test_login_data_driven(self,setup):
+        self.log_message.info("********* data driven test started **************")
         self.driver = setup
         self.driver.get(self.base_url)
         self.login_page = Login(self.driver)
-        self.login_page.set_user_name(self.username)
-        self.login_page.set_password(self.password)
-        self.login_page.click_login()
-        login_text = self.driver.title
-        if login_text=="Dashboard / nopCommerce administration":
-            self.driver.close()
-            assert True
-        else:
-            self.driver.save_screenshot("Screenshots/test_login.png")
-            self.driver.close()
-            assert False
 
-    def test_logout_function(self,setup):
-        self.driver = setup
-        self.driver.get(self.base_url)
-        self.login_page = Login(self.driver)
-        self.login_page.set_user_name(self.username)
-        self.login_page.set_password(self.password)
-        self.login_page.click_login()
-        self.login_page.click_logout()
-        Login_page_title = self.driver.title
-        if Login_page_title=="Your store. Login":
-            self.driver.close()
-            assert True
-        else:
-            self.driver.save_screenshot("Screenshots/test_logout_function.png")
-            self.driver.close()
+        self.row = read_excel_data_util.getRowCount(self.login_data_path,'Sheet1')
+        self.col = read_excel_data_util.getColumnCount(self.login_data_path,'Sheet1')
+        self.result = []
+        self.expected_login_text="Dashboard / nopCommerce administration"
+
+        for r in range(2,self.row+1):
+            self.user = read_excel_data_util.readData(self.login_data_path,'Sheet1',r,1)
+            self.password = read_excel_data_util.readData(self.login_data_path,'Sheet1',r,2)
+            self.exp = read_excel_data_util.readData(self.login_data_path,'Sheet1',r,3)
+            self.login_page.set_user_name(self.user)
+            self.login_page.set_password(self.password)
+            self.login_page.click_login()
+            self.log_message.info("********* logged in **************")
+
+            time.sleep(2)
+            self.actula_login_text = self.driver.title
+            self.log_message.info("logged out")
+
+            time.sleep(5)
+            
+
+            if self.actula_login_text== self.expected_login_text:
+                if self.exp=="Pass":
+                    self.result.append("Pass")
+                    self.login_page.click_logout()
+                    time.sleep(2)
+                elif self.exp=="Fail":
+                    self.result.append('Fail')
+            elif self.actula_login_text!=self.expected_login_text:
+                if self.exp=='Fail':
+                    self.result.append('Pass')
+                elif self.exp=="Pass":
+                    self.result.append("Fail")
+            self.log_message.info("result for the test  {}".format(self.result))
+
+        if "Fail" in self.result:
             assert False
+            self.log_message.info("********* data driven test failed**************")
+        else:
+            assert True
+            self.log_message.info("********* data driven passed failed**************")
+
+
+
+
+
+                
+
 
 
 
