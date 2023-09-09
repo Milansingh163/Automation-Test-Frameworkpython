@@ -1,0 +1,1 @@
+python -m pytest testCases\test_login.py --browser Chrome

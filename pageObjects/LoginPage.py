@@ -1,7 +1,3 @@
-'''
-https://admin-demo.nopcommerce.com/login?ReturnUrl=%2Fadmin%2F
-'''
-
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 
