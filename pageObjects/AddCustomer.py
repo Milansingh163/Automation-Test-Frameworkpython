@@ -34,27 +34,42 @@ class AddCustomer:
         self.driver.find_element(By.XPATH,self.add_new_button_Xpath).click()
 
     def add_customer_email(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_email_id).send_keys('milansingh163@gmail.com')
+
     def add_customer_password(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_password_id).send_keys('AAaa@@33')
+
     def add_customer_FistName(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_fist_name_id).send_keys('Milan')
+
     def add_customer_LastName(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_last_name_id).send_keys('Singh')
+
     def gender_male(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_gender_male_id).click()
+
     def gender_female(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_gender_female_id).click()
+
     def add_dob(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_dob_id).send_keys("9/3/1993")
+
     def company_name(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_Company_id).send_keys("Giit solutions")
+
     def click_on_tax_exempt(self):
-        pass
+        self.driver.find_element(By.ID,self.add_customer_istaxemp_Id).click()
+
     def newsletter(self):
-        pass
+        self.driver.find_element(By.XPATH,self.add_customer_NewsLetter_Xpath).click()
+
     def add_manager_of_vendor(self):
-        pass
+        self.driver.find_element(By.XPATH,self.add_customer_manager_of_vendor_Xpath).click()
+        self.driver.find_element(By.XPATH,self.add_customer_chose_vendor1_xpath).click()
+
     def add_admin_comment(self):
-        pass
+        self.driver.find_element(By.XPATH,self.add_customer_admin_comment_id).send_keys("let test admin comment")
+
+    def save_button(self):
+        self.driver.find_element(By.XPATH,self.add_customer_save_xpath).click()
 
